@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <style>
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div
+        class="min-h-screen bg-gray-900 text-gray-200 flex flex-col justify-center items-center transition duration-500 ease-in-out">
+        <div class="flex justify-center items-center w-full mb-6">
+            <h1 class="text-4xl font-bold text-gray-100 animate-pulse">KEEP NOTES</h1>
+        </div>
+        <div class="main w-full flex flex-wrap justify-center items-center p-4">
+            <form action="/create" method="post"
+                class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md mb-8 animate-bounce-on-focus">
+                <input type="text" name="title" id="" placeholder="Enter your title"
+                    class="w-full p-3 mb-4 bg-gray-700 border border-gray-600 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-600 transition duration-300 ease-in-out animate-bounce-on-focus">
+                <textarea name="detail" id="" placeholder="Enter your detail"
+                    class="resize-none w-full p-3 mb-4 bg-gray-700 border border-gray-600 rounded-md text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-600 transition duration-300 ease-in-out h-32 animate-bounce-on-focus"></textarea>
+                <input type="submit" value="CREATE"
+                    class="w-full bg-blue-500 text-white p-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer animate-bounce-on-focus">
+            </form>
+        </div>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-screen-lg p-4">
+            <% if (files.length> 0) { %>
+                <% files.forEach(val=> { %>
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden animate-fade-in">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                                <%= val %>
+                            </h2>
+                            <a href="/files/<%= val %>"
+                                class="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-600 transition duration-300 ease-in-out">Read
+                                More</a>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">NO TASK YET</h3>
+                            <% } %>
+        </div>
+
+    </div>
+
+    <style>
+        .animate-bounce-on-focus:focus {
+            animation: bounce 0.5s;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+    </style>
+</body>
+
+</html>

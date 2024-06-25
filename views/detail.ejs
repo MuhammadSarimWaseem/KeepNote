@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        .link-hover-effect {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .link-hover-effect::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background: currentColor;
+            transition: width 0.3s;
+        }
+
+        .link-hover-effect:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-gray-200 transition duration-500 ease-in-out">
+    <div class="min-h-screen flex flex-col justify-center items-center p-4">
+        <a href="/home"
+            class="text-blue-500 link-hover-effect dark:text-blue-400 transition duration-300 ease-in-out mb-6">
+            Back To Home Page
+        </a>
+        <h1 class="text-3xl font-bold text-gray-100 mb-4 animate-slide-in"><%= filename %></h1>
+        <p class="text-lg text-gray-300 animate-slide-in"><%= filedetail %></p>
+    </div>
+</body>
+
+</html>
