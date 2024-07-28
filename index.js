@@ -23,6 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
     fs.readdir('./files', (err, files) => {
+        if (err) {
+            console.error("Error reading files:", err);
+            return res.status(500).send("Internal Server Error");
+        }
         return res.render('home', { files })
     })
 })
