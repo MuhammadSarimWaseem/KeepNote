@@ -17,11 +17,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 //Routes
-// app.get('/', (req, res) => {
-//     res.send("index")
-// })
-
 app.get('/', (req, res) => {
+    res.send("index")
+})
+
+app.get('/home', (req, res) => {
     fs.readdir('./files', (err, files) => {
         return res.render('home', { files })
     })
