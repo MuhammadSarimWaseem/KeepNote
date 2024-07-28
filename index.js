@@ -3,7 +3,6 @@ const path = require("path")
 const fs = require("fs")
 const dotenv = require("dotenv")
 dotenv.config();
-const serverless = require('serverless-http');
 
 const app = express()
 
@@ -42,5 +41,3 @@ app.post('/create', (req, res) => {
 })
 
 app.listen(process.env.PORT, () => { console.log("server connected", process.env.PORT) })
-module.exports = app;
-module.exports.handler = serverless(app);
