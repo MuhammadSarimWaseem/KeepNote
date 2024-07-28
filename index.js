@@ -17,16 +17,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 //Routes
-// app.get('/', (req, res) => {
-//     res.send("index")
-// })
-
 app.get('/', (req, res) => {
+    res.send("index")
+})
+
+app.get('/home', (req, res) => {
     fs.readdir('./files', (err, files) => {
-        if (err) {
-            console.error("Error reading files:", err);
-            return res.status(500).send("Internal Server Error");
-        }
         return res.render('home', { files })
     })
 })
@@ -40,7 +36,7 @@ app.get('/files/:filename', (req, res) => {
 
 app.post('/create', (req, res) => {
     fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.detail, (err) => {
-        res.redirect('/')
+        res.redirect('/home')
     })
 })
 
