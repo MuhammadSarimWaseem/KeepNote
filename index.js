@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //Routes
 app.get('/', (req, res) => {
-    res.send("index")
+    // res.send("index")
+    res.redirect("/home")
 })
 
 app.get('/home', (req, res) => {
