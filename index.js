@@ -17,13 +17,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 //Routes
-app.get('/', (req, res) => {
-    res.render('/home')
-})
+// app.get('/', (req, res) => {
+//     res.send("index")
+// })
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
     fs.readdir('./files', (err, files) => {
-        return res.redirect('/', { files })
+        return res.render('home', { files })
     })
 })
 
@@ -36,7 +36,7 @@ app.get('/files/:filename', (req, res) => {
 
 app.post('/create', (req, res) => {
     fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.detail, (err) => {
-        res.redirect('/home')
+        res.redirect('/')
     })
 })
 
