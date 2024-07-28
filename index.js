@@ -1,9 +1,10 @@
 const express = require("express")
 const path = require("path")
 const fs = require("fs")
+const dotenv = require("dotenv")
+dotenv.config();
 
 const app = express()
-const PORT = 3000
 
 app.set('view engine', 'ejs')
 app.set("views", path.resolve('./views'))
@@ -39,4 +40,4 @@ app.post('/create', (req, res) => {
     })
 })
 
-app.listen(PORT, () => { console.log("server connected", PORT) })
+app.listen(process.env.PORT, () => { console.log("server connected", process.env.PORT) })

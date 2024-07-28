@@ -1,5 +1,0 @@
-1 run cmd "npm i"
-2 run cmd "npm i express"
-3 run cmd "npm i nodemon"
-4 change the script ""start": "nodemon index.js""
-5 run cmd "npm i ejs"  // if needed
