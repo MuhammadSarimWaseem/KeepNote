@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     fs.readdir('./files', (err, files) => {
         if (err) {
             console.error("Error reading files:", err);
@@ -47,7 +47,7 @@ app.post('/create', (req, res) => {
     });
 });
 
-app.get('/test', (req, res) => {
+app.get('/', (req, res) => {
     res.render('test');
 });
 
