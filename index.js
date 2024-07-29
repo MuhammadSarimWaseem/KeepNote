@@ -42,3 +42,6 @@ app.post('/create', (req, res) => {
 })
 
 app.listen(process.env.PORT, () => { console.log("server connected", process.env.PORT) })
+
+
+module.exports = app;
