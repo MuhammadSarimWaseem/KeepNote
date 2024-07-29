@@ -1,47 +1,56 @@
-const express = require("express")
-const path = require("path")
-const fs = require("fs")
-const dotenv = require("dotenv")
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const dotenv = require("dotenv");
 dotenv.config();
 
-const app = express()
+const app = express();
 
-app.set('view engine', 'ejs')
-app.set("views", path.resolve('./views'))
+app.set('view engine', 'ejs');
+app.set('views', path.resolve('./views'));
 
-//Middlewares
+// Middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: 'false' }))
-app.use(express.static(path.join(__dirname, 'public')))
-
-
-//Routes
+// Routes
 app.get('/', (req, res) => {
-    // res.send("index")
-    res.redirect("/home")
-})
-
-app.get('/home', (req, res) => {
     fs.readdir('./files', (err, files) => {
-        return res.render('home', { files })
-    })
-})
+        if (err) {
+            console.error("Error reading files:", err);
+            return res.status(500).send("Internal Server Error");
+        }
+        return res.render('home', { files });
+    });
+});
 
 app.get('/files/:filename', (req, res) => {
     fs.readFile(`./files/${req.params.filename}`, "utf-8", (err, filedata) => {
-        console.log(filedata)
-        return res.render('detail', { filename: req.params.filename, filedetail: filedata })
-    })
-})
+        if (err) {
+            console.error("Error reading file:", err);
+            return res.status(500).send("Internal Server Error");
+        }
+        console.log(filedata);
+        return res.render('detail', { filename: req.params.filename, filedetail: filedata });
+    });
+});
 
 app.post('/create', (req, res) => {
-    fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, req.body.detail, (err) => {
-        res.redirect('/home')
-    })
-})
+    const title = req.body.title.split(' ').join('');
+    fs.writeFile(`./files/${title}.txt`, req.body.detail, (err) => {
+        if (err) {
+            console.error("Error creating file:", err);
+            return res.status(500).send("Internal Server Error");
+        }
+        res.redirect('/');
+    });
+});
 
-app.listen(process.env.PORT, () => { console.log("server connected", process.env.PORT) })
+app.get('/test', (req, res) => {
+    res.render('test');
+});
 
+app.listen(process.env.PORT, () => { console.log("Server connected on port", process.env.PORT); });
 
 module.exports = app;
